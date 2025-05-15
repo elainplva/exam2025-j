@@ -1,1 +1,38 @@
-<p>movies works!</p>
+<div class="container mt-4">
+    <h2 class="text-center">Movies</h2>
+  
+    <div *ngIf="movies.length > 0; else noMovies">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Poster</th>
+            <th>Title</th>
+            <th>Year</th>
+            <th>Genres</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let movie of movies">
+            <td>
+              <img
+                [src]="movie.poster ? movie.poster : 'assets/placeholder-image.png'"
+                alt="Movie Poster"
+                width="150"
+              />
+            </td>
+            <td>{{ movie.title }}</td>
+            <td>{{ movie.year }}</td>
+            <td>
+              <ul class="list-unstyled">
+                <li *ngFor="let genre of movie.genres">{{ genre }}</li>
+              </ul>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  
+    <ng-template #noMovies>
+      <p class="text-center text-muted">No movies available to display.</p>
+    </ng-template>
+</div>

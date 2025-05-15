@@ -1,26 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { Router } from '@angular/router';
-import { MovieDetails } from '../../services/moviedetails.service';
+import { MovieService } from '../../services/moviedetails.service';
+import { Imovies } from '../../interfaces/imovies';
 
 @Component({
   selector: 'app-movies',
-  imports: [],
   templateUrl: './movies.component.html',
-  styleUrl: './movies.component.css'
+  styleUrls: ['./movies.component.css']
 })
 export class MoviesComponent implements OnInit {
-  movies: any[] = [];
+  movies: Imovies[] = [];
 
-  constructor(private movieService: MovieDetails, private router: Router) {}
+  constructor(private movieService: MovieService) {}
 
   ngOnInit(): void {
-    this.moviedetails.getMovies().subscribe(data => {
-      this.movies = data.results;
-    });
+    this.getMovieDetails();
   }
 
-  viewDetails(movieId: number): void {
-    this.router.navigate(['/movie', movieId]);
+  getMovieDetails(): void {
+    this.movieService.getMovies().subscribe(data => {
+      console.log('Raw movie data:', data);
+      this.movies = data; 
+    });
   }
 }
